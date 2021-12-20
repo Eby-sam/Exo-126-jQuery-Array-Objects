@@ -5,27 +5,46 @@ let arrObj = [
     {"person" : "Spencer", "age" : 34, "avatar" : "https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Prescription02&hairColor=Blonde&facialHairType=BeardMedium&facialHairColor=Black&clotheType=CollarSweater&clotheColor=PastelRed&eyeType=Dizzy&eyebrowType=SadConcerned&mouthType=Sad&skinColor=Yellow"}
 ];
 
-//Methode js native pour parcourir un tableau d'objets ( avec for...in )
-for(let i in arrObj) {
-    // i est l'index de mon tableau d'objet
-    console.log("index = " + i);
+$("#container").css( {
+    "width": "40%",
+    "height": "60rem",
+    "margin-left": "30%",
+    "margin-top": "2rem",
+    "border": "1px solid black",
+    "border-radius": "80px"
+})
 
-    // j'accède à mon tableau d'objet comme n'importe quel tableau
-    console.log("arrObj = " + arrObj[i]);
+$("button").css( {
+    "font-size": "2rem",
+    "margin-left": "30%",
+    "margin-top": "2rem"
+})
 
-    // J'accéde à une propriété particuliére de mon objet ,ici l'age
-    console.log("age = " + arrObj[i].age);
+let index = 0;
+Display();
+
+$("#precedent").click(function () {
+    index--;
+    Display();
+})
+$("#next").click(function () {
+    index++;
+    Display();
+})
+
+function Display() {
+    if (document.getElementById("toggle") === null) {
+        document.getElementById("nom").innerHTML = arrObj[index].person + " (" + arrObj[index].age + ")";
+        $("img").attr("src", arrObj[index].avatar);
+    }
+    else {
+        let list = document.getElementById("list");
+
+        for (let x = 0; x < arrObj.length; x++) {
+            let image = document.createElement("img");
+            list.append(image);
+            $($("img").get(x)).attr("src", arrObj[x].avatar);
+            document.getElementById("nom").innerHTML += arrObj[x].person + " (" + arrObj[x].age + ")";
+        }
+    }
 }
-
-//Autre méthode : utilisation de forEach
-arrObj.forEach(function(arr) {
-    //Afficher la propriété age pour chaque objet contenu dans mon tableau
-   console.log("Resultat avec foreach = " + arr.age);
-});
-
-//Méthode utilisant jQuery
-$.each(arrObj, function(index, value) {
-    //Afficher la propriété age pour chaque objet contenu dans mon tableau
-   console.log("Affichage age utilisant jQuery = " + value.age);
-});
-
